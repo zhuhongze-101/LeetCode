@@ -20,7 +20,7 @@ public class ArraySolution {
         }
         return result;
     }
-
+    //最优解
     public String longestCommonPrefix_Optimality(String[] strs) {
         if (strs == null || strs.length == 0) {
             return "";
