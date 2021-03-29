@@ -7,7 +7,7 @@ public class TreeNodeMainTest {
         TreeNode p =new TreeNode(1,new TreeNode(2),new TreeNode(1));
         TreeNode q =new TreeNode(1,new TreeNode(1),new TreeNode(2));
         System.out.println(treeNodeSolution.isSameTree(p,q));
-
+        treeNodeSolution.maxDepth2(p);
 
     }
 }

@@ -1,5 +1,8 @@
 package com.test.Tree;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TreeNodeSolution {
     //判断二叉树是否相同
     public boolean isSameTree(TreeNode p, TreeNode q) {
@@ -19,4 +22,34 @@ public class TreeNodeSolution {
         return  IsMorrir(right.left,left.right)
                 && IsMorrir(right.right,left.left) && right.val == left.val;
     }
+
+    public int maxDepth(TreeNode root) {
+        if(root == null) return 0;
+        return 1+ Math.max(maxDepth(root.right),maxDepth(root.left));
+    }
+    public int maxDepth2(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        int ans = 0;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            while (size > 0) {
+                TreeNode node = queue.poll();
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+                size--;
+            }
+            ans++;
+        }
+        return ans;
+    }
+
+
 }
