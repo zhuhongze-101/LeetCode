@@ -14,7 +14,6 @@ public class TreeNodeSolution {
     }
     //判断二叉树是否对称 对称性：左子树。val = 右子树。val 左子树的左子树与右子树的右子树对称
     public boolean isSymmetric(TreeNode root) {
-
         return IsMorrir(root.right,root.left);
     }
 
@@ -24,11 +23,12 @@ public class TreeNodeSolution {
         return  IsMorrir(right.left,left.right)
                 && IsMorrir(right.right,left.left) && right.val == left.val;
     }
-
+    //获得二叉树最大深度
     public int maxDepth(TreeNode root) {
         if(root == null) return 0;
         return 1+ Math.max(maxDepth(root.right),maxDepth(root.left));
     }
+    //深度
     public int maxDepth2(TreeNode root) {
         if (root == null) {
             return 0;
@@ -52,7 +52,10 @@ public class TreeNodeSolution {
         }
         return ans;
     }
-    private HashMap<TreeNode,Integer> heghts = new HashMap<>();
+
+    //给定一个二叉树，判断它是否是高度平衡的二叉树。
+    //本题中，一棵高度平衡二叉树定义为：
+    //一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1 。
     public boolean isBalanced(TreeNode root) {
         return recur(root) != -1;
     }
@@ -65,7 +68,7 @@ public class TreeNodeSolution {
         if(right == -1) return -1;
         return Math.abs(left-right) < 2 ? Math.max(left, right)+1 : -1;
     }
-
+    //获得二叉树最小深度
     public int minDepth(TreeNode root) {
         if (root == null) return 0;
         if (root.left == null && root.right == null) {
@@ -79,6 +82,10 @@ public class TreeNodeSolution {
         return dapth + 1;
     }
 
+    //给你二叉树的根节点 root 和一个表示目标和的整数 targetSum ，判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。
+    //叶子节点 是指没有子节点的节点。
+    //来源：力扣（LeetCode）
+    //链接：https://leetcode-cn.com/problems/path-sum
     public boolean hasPathSum(TreeNode root, int targetSum) {
         if(root == null) return  false;
         if(root.right == null && root.left == null){
@@ -86,7 +93,7 @@ public class TreeNodeSolution {
         }
         return hasPathSum(root.left,targetSum-root.val) || hasPathSum(root.right,targetSum-root.val);
     }
-
+    //翻转一棵二叉树。
     public TreeNode invertTree(TreeNode root) {
         if(root == null) return  null;
         if(root.left == null && root.right == null) return  root;
@@ -97,6 +104,9 @@ public class TreeNodeSolution {
         return root;
     }
 
+    //给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。
+    //百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+    //链接：https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-search-tree
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if(p.val > q.val){
             TreeNode temp = p;
