@@ -1,5 +1,7 @@
 package com.test.Tree;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -50,6 +52,62 @@ public class TreeNodeSolution {
         }
         return ans;
     }
+    private HashMap<TreeNode,Integer> heghts = new HashMap<>();
+    public boolean isBalanced(TreeNode root) {
+        return recur(root) != -1;
+    }
+
+    public int recur(TreeNode root){
+        if(root == null)return 0;
+        int left = recur(root.left);
+        if(left == -1) return -1;
+        int right =recur(root.right);
+        if(right == -1) return -1;
+        return Math.abs(left-right) < 2 ? Math.max(left, right)+1 : -1;
+    }
+
+    public int minDepth(TreeNode root) {
+        if (root == null) return 0;
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        int dapth = Integer.MAX_VALUE;
+        if(root.left!= null)
+            dapth = Math.min(minDepth(root.left),dapth);
+        if(root.right!= null)
+            dapth = Math.min(minDepth(root.right),dapth);
+        return dapth + 1;
+    }
+
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null) return  false;
+        if(root.right == null && root.left == null){
+            return targetSum == root.val;
+        }
+        return hasPathSum(root.left,targetSum-root.val) || hasPathSum(root.right,targetSum-root.val);
+    }
+
+    public TreeNode invertTree(TreeNode root) {
+        if(root == null) return  null;
+        if(root.left == null && root.right == null) return  root;
+        TreeNode temp1 = invertTree(root.left);
+        TreeNode temp2 = invertTree(root.right);
+        root.right = temp1;
+        root.left = temp2;
+        return root;
+    }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(p.val > q.val){
+            TreeNode temp = p;
+            p = q;
+            q = temp;
+        }
+        if(root.val > p.val && root.val < q.val) return root;
+        else if(root.val > p.val && root.val > p.val) return lowestCommonAncestor(root.left,p,q);
+        else return  lowestCommonAncestor(root.right,p,q);
+    }
+
 
 
 }
