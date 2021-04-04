@@ -153,6 +153,63 @@ public class TreeNodeSolution {
         return result;
 
     }
+    //左叶子之和
+    public int sumOfLeftLeaves(TreeNode root) {
+        if(root == null ) return 0;
+        if(root.left ==null) return sumOfLeftLeaves(root.right);
+        if(root.left.left == null && root.left.right == null){
+            return root.left.val + sumOfLeftLeaves(root.right);
+        }else   return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
+
+    }
+
+    /**
+     * 中序遍历首先遍历左子树，然后访问根结点，最后遍历右子树。若二叉树为空则结束返回，否则：
+     * （1）中序遍历左子树
+     * （2）访问根结点
+     * （3）中序遍历右子树
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<>();
+        if(root == null) return  result;
+        inorderTraversal(root,result);
+        return result;
+    }
+
+    public void inorderTraversal(TreeNode root,List<Integer> result) {
+        if(root == null) return;
+        inorderTraversal(root.left,result);
+        result.add(root.val);
+        inorderTraversal(root.right,result);
+
+    }
+
+    /**
+     * 给定一个整数 n，生成所有由 1 ... n 为节点所组成的 二叉搜索树
+      * @param n
+     * @return
+     */
+    public List<TreeNode> generateTrees(int n)  {
+        List<TreeNode> result = new ArrayList<>();
+        if(n==0) return result;
+        if(n==1){
+            result.add(new TreeNode(1));
+            return  result;
+        }
+        List<TreeNode> tempResult = generateTrees(n-1);
+        for (int i = 0; i < tempResult.size(); i++) {
+            TreeNode tempRoot = tempResult.get(i);
+            TreeNode tempResul = new TreeNode(n);
+            tempResul.left = tempRoot;
+            result.add(tempResul);
+
+        }
+        return  result;
+    }
+    
+
 
 
 }

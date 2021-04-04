@@ -9,6 +9,6 @@ public class TreeNodeMainTest {
      //   System.out.println(treeNodeSolution.isSameTree(p,q));
      //   System.out.println(p);
 
-      System.out.println(treeNodeSolution.binaryTreePaths(q));
+      System.out.println(treeNodeSolution.generateTrees(2));
     }
 }

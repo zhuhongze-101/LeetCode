@@ -1,5 +1,8 @@
 package com.test.Array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ArraySolution {
     public ArraySolution(){}
 
@@ -77,5 +80,64 @@ public class ArraySolution {
 
 
         return i+1;
+    }
+
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int totalLength = nums1.length + nums2.length;
+        if(totalLength == 0) return 0;
+        int i = 0;
+        int j = 0;
+        int index = 0;
+        int result = 0;
+        int curNum = 0;
+        while (index < totalLength){
+            if(i>=nums1.length){
+                curNum = nums2[j];
+                j++;
+
+            }else  if(j>=nums2.length){
+                curNum = nums1[i];
+                i++;
+
+            }else  if(nums1[i] >= nums2[j]){
+                curNum = nums2[j];
+                j++;
+            }else{
+                curNum = nums1[i];
+                i++;
+            }
+            if((index == Math.floor(totalLength/2)-1 && totalLength%2 == 0) || index == Math.floor(totalLength/2)  ){
+                result += curNum;
+                if(index == Math.floor(totalLength/2)) break;
+            }
+
+            index ++;
+        }
+        return totalLength%2 == 0?result/2.0:result;
+
+    }
+    //6. Z 字形变换
+    public String convert(String s, int numRows) {
+        if (numRows == 1) return s;
+        StringBuilder[] temp = new StringBuilder[numRows];
+
+        for (int i = 0; i < numRows; i++) {
+            temp[i] = new StringBuilder();
+        }
+        int one = 2 * numRows - 2;
+        for (int j = 0; j < s.length(); j++) {
+            String str = s.substring(j,j+1);
+            if(j%one < numRows){
+                temp[j%one].append(str);
+            }else {
+                temp[one - j%one].append(str);
+            }
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < numRows; i++) {
+            result.append(temp[i]);
+        }
+        return result.toString();
+
     }
 }
